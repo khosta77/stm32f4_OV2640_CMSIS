@@ -1080,5 +1080,7 @@ const unsigned char OV2640_352x288_JPEG[][2]=
   0xe0, 0x00,
 };
 
+#define VERTICAL_RESOLUTION 120
+#define HORIZONTAL_RESOLUTION 160
 
 #endif   // OV2640_REGISTER_H_
