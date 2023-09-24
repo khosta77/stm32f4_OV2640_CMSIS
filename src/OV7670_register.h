@@ -1,0 +1,6 @@
+#ifndef OV7670_REGISTER_H_
+#define OV7670_REGISTER_H_
+
+
+
+#endif  // OV7670_REGISTER_H_
