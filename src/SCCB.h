@@ -1,15 +1,6 @@
 #ifndef SERIAL_CAMERA_CONTROL_BUS_H_
 #define SERIAL_CAMERA_CONTROL_BUS_H_
 
-#define SDA_IN0()  {GPIOC->CRH&=0XFFFF0FFF;GPIOC->CRH|=8<<12;}
-#define SDA_OUT0() {GPIOC->CRH&=0XFFFF0FFF;GPIOC->CRH|=3<<12;}
-
-
-//IOІЩЧчєЇКэ	 
-#define SDA_STATE0  PCin(11)  //КдИлSDA 
-
-
-
 volatile uint32_t timestamp = 0;
 
 void SysTick_Handler(void) {
@@ -19,7 +10,6 @@ void SysTick_Handler(void) {
 
 void delay_ms(uint16_t nms);
 void delay_us(uint32_t nus);
-
 
 #define RCC_AHB1ENR_SCCBEN() { \
     RCC->AHB1ENR |= (RCC_AHB1ENR_GPIOBEN); \
@@ -37,6 +27,15 @@ void delay_us(uint32_t nus);
 
 #define SIO_D_OFF() { \
     GPIOB->ODR &= ~GPIO_ODR_OD10; \
+}
+
+#define SIO_D_IN_MODE() { \
+    GPIOB->MODER &= ~(GPIO_MODER_MODER10_1 | GPIO_MODER_MODER10_0); \
+}
+
+#define SIO_D_OUT_MODE() { \
+    GPIOB->MODER &= ~(GPIO_MODER_MODER10_1 | GPIO_MODER_MODER10_0); \
+    GPIOB->MODER |= GPIO_MODER_MODER10_0;
 }
 
 #define GPIO_SCCB_SIO_C_INIT() { \
@@ -110,7 +109,7 @@ void NoAck0() {
 }
 
 void Ack0() {
-	SDA_OUT0();  //
+    SIO_D_OUT_MODE();
 
     SIO_D_ON();
     delay_us(100); 
@@ -130,11 +129,10 @@ uint8_t TestAck0() {
     SIO_C_ON();
 	delay_us(100);
 
-    GPIOB->MODER &= ~(GPIO_MODER_MODER10)
-	SDA_IN0();  //
+    SIO_D_IN_MODE();
 	delay_us(100);
 	
-    ack = READ_SIO_D;  // SDA_STATE0;
+    ack = READ_SIO_D;  // SDA_STATE0;  // Считываем сигнал
 	delay_us(100);
 	
     SIO_C_OFF();
@@ -161,7 +159,7 @@ uint8_t I2CWrite0(uint8_t DData) {
 	}
 	delay_us(100);
 	
-	SDA_IN0();  //
+    SIO_D_IN_MODE();
 	delay_us(100);
 
     SIO_C_ON();
@@ -175,7 +173,7 @@ uint8_t I2CWrite0(uint8_t DData) {
     SIO_C_OFF();
 	delay_us(100);
 
-    SDA_OUT0();  //
+    SIO_D_OUT_MODE();
 	return tem;  
 }
 
@@ -183,7 +181,7 @@ uint8_t I2CRead0() {
 	uint8_t read, j;
 	read = 0x00;
 	
-	SDA_IN0();  //
+    SIO_D_IN_MODE();
 	delay_us(100);
 	for (j = 8; j > 0; j--) {
 		delay_us(100);
@@ -211,7 +209,5 @@ void delay_us(uint32_t nus) {
     uint32_t delay = (timestamp + nus);
     while (delay < timestamp);
 }
-
-
 
 #endif  // SERIAL_CAMERA_CONTROL_BUS_H_
