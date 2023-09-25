@@ -1,6 +1,8 @@
 #ifndef SERIAL_CAMERA_CONTROL_BUS_H_
 #define SERIAL_CAMERA_CONTROL_BUS_H_
 
+#include "../system/include/cmsis/stm32f4xx.h"
+
 volatile uint32_t timestamp = 0;
 
 void SysTick_Handler(void) {
