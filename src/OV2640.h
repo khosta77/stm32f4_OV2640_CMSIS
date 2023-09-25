@@ -1,7 +1,8 @@
 #ifndef OV2640_H_
 #define OV2640_H_
 
-
+#include "OVxxxx_foo.h"
+#include "OV2640_register.h"
 
 #if 0
 void OV2640_HW_Init() {
