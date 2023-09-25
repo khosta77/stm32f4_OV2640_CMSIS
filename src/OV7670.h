@@ -7,216 +7,198 @@
 #define OV7670_DEVICE_WRITE_ADDRESS    0x42
 #define OV7670_DEVICE_READ_ADDRESS     0x43
 
-void set_Cmos7670reg(void) {
+uint8_t OV7670_init() {
+	uint8_t mmm;	
 
-	WrCmos7670(0x3a, 0x04);
-	WrCmos7670(0x40, 0xd0);
-	WrCmos7670(0x12, 0x14);
-	WrCmos7670(0x32, 0x80);
-	WrCmos7670(0x17, 0x16);
-	WrCmos7670(0x18, 0x04);
-	WrCmos7670(0x19, 0x02);
-	WrCmos7670(0x1a, 0x7b);
-	WrCmos7670(0x03, 0x06);
-	WrCmos7670(0x0c, 0x00);
-	WrCmos7670(0x3e, 0x00);
-	WrCmos7670(0x70, 0x3a);
-	WrCmos7670(0x71, 0x35);
-	WrCmos7670(0x72, 0x11);
-	WrCmos7670(0x73, 0x00);
-	WrCmos7670(0xa2, 0x02);
-	WrCmos7670(0x11, 0x81);
-	
-	WrCmos7670(0x7a, 0x20);
-	WrCmos7670(0x7b, 0x1c);
-	WrCmos7670(0x7c, 0x28);
-	WrCmos7670(0x7d, 0x3c);
-	WrCmos7670(0x7e, 0x55);
-	WrCmos7670(0x7f, 0x68);
-	WrCmos7670(0x80, 0x76);
-	WrCmos7670(0x81, 0x80);
-	WrCmos7670(0x82, 0x88);
-	WrCmos7670(0x83, 0x8f);
-	WrCmos7670(0x84, 0x96);
-	WrCmos7670(0x85, 0xa3);
-	WrCmos7670(0x86, 0xaf);
-	WrCmos7670(0x87, 0xc4);
-	WrCmos7670(0x88, 0xd7);
-	WrCmos7670(0x89, 0xe8);
-	
-	WrCmos7670(0x13, 0xe0);
-	WrCmos7670(0x00, 0x00);
-	
-	WrCmos7670(0x10, 0x00);
-	WrCmos7670(0x0d, 0x00);
-	WrCmos7670(0x14, 0x28);
-	WrCmos7670(0xa5, 0x05);
-	WrCmos7670(0xab, 0x07);
-	WrCmos7670(0x24, 0x75);
-	WrCmos7670(0x25, 0x63);
-	WrCmos7670(0x26, 0xA5);
-	WrCmos7670(0x9f, 0x78);
-	WrCmos7670(0xa0, 0x68);
-	WrCmos7670(0xa1, 0x03);
-	WrCmos7670(0xa6, 0xdf);
-	WrCmos7670(0xa7, 0xdf);
-	WrCmos7670(0xa8, 0xf0);
-	WrCmos7670(0xa9, 0x90);
-	WrCmos7670(0xaa, 0x94);
-	WrCmos7670(0x13, 0xe5);
-
-	WrCmos7670(0x0e, 0x61);
-	WrCmos7670(0x0f, 0x4b);
-	WrCmos7670(0x16, 0x02);
-	WrCmos7670(0x1e, 0x37);
-	WrCmos7670(0x21, 0x02);
-	WrCmos7670(0x22, 0x91);
-	WrCmos7670(0x29, 0x07);
-	WrCmos7670(0x33, 0x0b);
-	WrCmos7670(0x35, 0x0b);
-	WrCmos7670(0x37, 0x1d);
-	WrCmos7670(0x38, 0x71);
-	WrCmos7670(0x39, 0x2a);
-	WrCmos7670(0x3c, 0x78);
-	WrCmos7670(0x4d, 0x40);
-	WrCmos7670(0x4e, 0x20);
-	WrCmos7670(0x69, 0x00);
-	WrCmos7670(0x6b, 0x60);
-	WrCmos7670(0x74, 0x19);
-	WrCmos7670(0x8d, 0x4f);
-	WrCmos7670(0x8e, 0x00);
-	WrCmos7670(0x8f, 0x00);
-	WrCmos7670(0x90, 0x00);
-	WrCmos7670(0x91, 0x00);
-	WrCmos7670(0x92, 0x00);
-	WrCmos7670(0x96, 0x00);
-	WrCmos7670(0x9a, 0x80);
-	WrCmos7670(0xb0, 0x84);
-	WrCmos7670(0xb1, 0x0c);
-	WrCmos7670(0xb2, 0x0e);
-	WrCmos7670(0xb3, 0x82);
-	WrCmos7670(0xb8, 0x0a);
-
-
-
-	WrCmos7670(0x43, 0x14);
-	WrCmos7670(0x44, 0xf0);
-	WrCmos7670(0x45, 0x34);
-	WrCmos7670(0x46, 0x58);
-	WrCmos7670(0x47, 0x28);
-	WrCmos7670(0x48, 0x3a);
-	WrCmos7670(0x59, 0x88);
-	WrCmos7670(0x5a, 0x88);
-	WrCmos7670(0x5b, 0x44);
-	WrCmos7670(0x5c, 0x67);
-	WrCmos7670(0x5d, 0x49);
-	WrCmos7670(0x5e, 0x0e);
-	WrCmos7670(0x64, 0x04);
-	WrCmos7670(0x65, 0x20);
-	WrCmos7670(0x66, 0x05);
-	WrCmos7670(0x94, 0x04);
-	WrCmos7670(0x95, 0x08);
-	WrCmos7670(0x6c, 0x0a);
-	WrCmos7670(0x6d, 0x55);
-	WrCmos7670(0x6e, 0x11);
-	WrCmos7670(0x6f, 0x9f);
-	WrCmos7670(0x6a, 0x40);
-	WrCmos7670(0x01, 0x40);
-	WrCmos7670(0x02, 0x40);
-	WrCmos7670(0x13, 0xe7);
-	WrCmos7670(0x15, 0x00);  
-	
-	
-	WrCmos7670(0x4f, 0x80);
-	WrCmos7670(0x50, 0x80);
-	WrCmos7670(0x51, 0x00);
-	WrCmos7670(0x52, 0x22);
-	WrCmos7670(0x53, 0x5e);
-	WrCmos7670(0x54, 0x80);
-	WrCmos7670(0x58, 0x9e);
-	
-	WrCmos7670(0x41, 0x08);
-	WrCmos7670(0x3f, 0x00);
-	WrCmos7670(0x75, 0x05);
-	WrCmos7670(0x76, 0xe1);
-	WrCmos7670(0x4c, 0x00);
-	WrCmos7670(0x77, 0x01);
-	WrCmos7670(0x3d, 0xc2);	
-	WrCmos7670(0x4b, 0x09);
-	WrCmos7670(0xc9, 0x60);
-	WrCmos7670(0x41, 0x38);
-	WrCmos7670(0x56, 0x40);
-	
-	WrCmos7670(0x34, 0x11);
-	WrCmos7670(0x3b, 0x02); 
-								
-	WrCmos7670(0xa4, 0x89);
-	WrCmos7670(0x96, 0x00);
-	WrCmos7670(0x97, 0x30);
-	WrCmos7670(0x98, 0x20);
-	WrCmos7670(0x99, 0x30);
-	WrCmos7670(0x9a, 0x84);
-	WrCmos7670(0x9b, 0x29);
-	WrCmos7670(0x9c, 0x03);
-	WrCmos7670(0x9d, 0x4c);
-	WrCmos7670(0x9e, 0x3f);
-	WrCmos7670(0x78, 0x04);
-	
-	WrCmos7670(0x79, 0x01);
-	WrCmos7670(0xc8, 0xf0);
-	WrCmos7670(0x79, 0x0f);
-	WrCmos7670(0xc8, 0x00);
-	WrCmos7670(0x79, 0x10);
-	WrCmos7670(0xc8, 0x7e);
-	WrCmos7670(0x79, 0x0a);
-	WrCmos7670(0xc8, 0x80);
-	WrCmos7670(0x79, 0x0b);
-	WrCmos7670(0xc8, 0x01);
-	WrCmos7670(0x79, 0x0c);
-	WrCmos7670(0xc8, 0x0f);
-	WrCmos7670(0x79, 0x0d);
-	WrCmos7670(0xc8, 0x20);
-	WrCmos7670(0x79, 0x09);
-	WrCmos7670(0xc8, 0x80);
-	WrCmos7670(0x79, 0x02);
-	WrCmos7670(0xc8, 0xc0);
-	WrCmos7670(0x79, 0x03);
-	WrCmos7670(0xc8, 0x40);
-	WrCmos7670(0x79, 0x05);
-	WrCmos7670(0xc8, 0x30);
-	WrCmos7670(0x79, 0x26); 
-	WrCmos7670(0x09, 0x00);	
-	
-	
-}
-
-/***************************************************************************
-Гы    іЖЈєunsigned char Cmos7670_init(void)
-№¦    ДЬЈєCMOSіхКј»Ї
-ИлїЪІОКэЈєОЮ
-іцїЪІОКэЈє1 іхКј»ЇіЙ№¦
-          0 іхКј»ЇК§°Ь
-Лµ    ГчЈє
-µчУГ·Ѕ·ЁЈєm=Cmos7670_init();
-***************************************************************************/
-unsigned char Cmos7670_init(void)
-{
-	unsigned char mmm;	
-
-	
 	InitI2C0();
-
-	mmm=0x80;
-	if(0==WrCmos7670(0x12, mmm)) 
-	{
+	mmm = 0x80;
+	if (0 == OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x12, mmm)) {
 		return 0 ;
 	}
 	delay_ms(10);
 
-  	set_Cmos7670reg();
-
+  	OV7670_set_register();
 	return 1; 
 } 
 
+void OV7670_set_register() {
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x3a, 0x04);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x40, 0xd0);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x12, 0x14);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x32, 0x80);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x17, 0x16);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x18, 0x04);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x19, 0x02);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x1a, 0x7b);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x03, 0x06);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x0c, 0x00);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x3e, 0x00);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x70, 0x3a);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x71, 0x35);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x72, 0x11);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x73, 0x00);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0xa2, 0x02);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x11, 0x81);
+	
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x7a, 0x20);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x7b, 0x1c);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x7c, 0x28);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x7d, 0x3c);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x7e, 0x55);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x7f, 0x68);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x80, 0x76);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x81, 0x80);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x82, 0x88);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x83, 0x8f);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x84, 0x96);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x85, 0xa3);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x86, 0xaf);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x87, 0xc4);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x88, 0xd7);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x89, 0xe8);
+	
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x13, 0xe0);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x00, 0x00);
+	
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x10, 0x00);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x0d, 0x00);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x14, 0x28);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0xa5, 0x05);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0xab, 0x07);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x24, 0x75);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x25, 0x63);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x26, 0xA5);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x9f, 0x78);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0xa0, 0x68);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0xa1, 0x03);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0xa6, 0xdf);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0xa7, 0xdf);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0xa8, 0xf0);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0xa9, 0x90);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0xaa, 0x94);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x13, 0xe5);
+
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x0e, 0x61);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x0f, 0x4b);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x16, 0x02);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x1e, 0x37);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x21, 0x02);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x22, 0x91);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x29, 0x07);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x33, 0x0b);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x35, 0x0b);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x37, 0x1d);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x38, 0x71);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x39, 0x2a);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x3c, 0x78);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x4d, 0x40);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x4e, 0x20);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x69, 0x00);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x6b, 0x60);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x74, 0x19);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x8d, 0x4f);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x8e, 0x00);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x8f, 0x00);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x90, 0x00);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x91, 0x00);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x92, 0x00);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x96, 0x00);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x9a, 0x80);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0xb0, 0x84);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0xb1, 0x0c);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0xb2, 0x0e);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0xb3, 0x82);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0xb8, 0x0a);
+
+
+
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x43, 0x14);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x44, 0xf0);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x45, 0x34);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x46, 0x58);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x47, 0x28);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x48, 0x3a);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x59, 0x88);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x5a, 0x88);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x5b, 0x44);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x5c, 0x67);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x5d, 0x49);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x5e, 0x0e);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x64, 0x04);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x65, 0x20);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x66, 0x05);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x94, 0x04);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x95, 0x08);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x6c, 0x0a);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x6d, 0x55);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x6e, 0x11);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x6f, 0x9f);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x6a, 0x40);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x01, 0x40);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x02, 0x40);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x13, 0xe7);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x15, 0x00);  
+	
+	
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x4f, 0x80);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x50, 0x80);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x51, 0x00);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x52, 0x22);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x53, 0x5e);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x54, 0x80);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x58, 0x9e);
+	
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x41, 0x08);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x3f, 0x00);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x75, 0x05);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x76, 0xe1);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x4c, 0x00);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x77, 0x01);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x3d, 0xc2);	
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x4b, 0x09);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0xc9, 0x60);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x41, 0x38);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x56, 0x40);
+	
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x34, 0x11);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x3b, 0x02); 
+								
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0xa4, 0x89);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x96, 0x00);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x97, 0x30);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x98, 0x20);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x99, 0x30);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x9a, 0x84);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x9b, 0x29);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x9c, 0x03);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x9d, 0x4c);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x9e, 0x3f);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x78, 0x04);
+	
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x79, 0x01);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0xc8, 0xf0);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x79, 0x0f);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0xc8, 0x00);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x79, 0x10);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0xc8, 0x7e);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x79, 0x0a);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0xc8, 0x80);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x79, 0x0b);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0xc8, 0x01);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x79, 0x0c);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0xc8, 0x0f);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x79, 0x0d);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0xc8, 0x20);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x79, 0x09);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0xc8, 0x80);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x79, 0x02);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0xc8, 0xc0);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x79, 0x03);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0xc8, 0x40);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x79, 0x05);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0xc8, 0x30);
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x79, 0x26); 
+	OVxxxx_WriteReg(OV7670_DEVICE_WRITE_ADDRESS, 0x09, 0x00);		
+}
 
 #endif  // OV7670_H_
