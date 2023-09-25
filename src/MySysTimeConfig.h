@@ -4,6 +4,7 @@
 #include "../system/include/cmsis/stm32f4xx.h"
 
 #if 0
+#if 0  // Ну это с ккаким то этим связано
 void SystemInit(void)
 {
   /* FPU settings ------------------------------------------------------------*/
@@ -313,8 +314,7 @@ void MySystemInit(void)
   SCB->VTOR = FLASH_BASE | VECT_TAB_OFFSET; /* Vector Table Relocation in Internal FLASH */
 #endif
 }
-
-
+#endif
 
 
 #endif  // MYSYSTIMECONFIG_H_
