@@ -6,8 +6,8 @@
 #define CFGR_MCO1_RESET_MASK      ((uint32_t)0xF89FFFFF)
 
 #define RCC_MCO1Source_HSI               ((uint32_t)0x00000000)
-#define RCC_MCO1Source_LSE               ((uint32_t)0x00200000)
-#define RCC_MCO1Source_HSE               ((uint32_t)0x00400000)
+#define RCC_MCO1Source_LSE               ((uint32_t)0x00200000)  // сигнала нет, на 1
+#define RCC_MCO1Source_HSE               ((uint32_t)0x00400000)  // сигнала нет, на 1
 #define RCC_MCO1Source_PLLCLK            ((uint32_t)0x00600000)
 
 #define RCC_MCO1Div_1                    ((uint32_t)0x00000000)
@@ -48,9 +48,9 @@ void PWM_init() {
     RCC->APB1ENR |= RCC_APB1ENR_TIM4EN;
 
     TIM4->PSC = 2;
-    TIM4->ARR = 2;
+    TIM4->ARR = 5;
     TIM4->CCMR1 |= 0x60;
-    TIM4->CCR1 = 1;
+    TIM4->CCR1 = 2;
     TIM4->CCER |= 0x1;
     
     TIM4->DIER |= TIM_DIER_UIE;    
@@ -62,8 +62,8 @@ void PWM_init() {
 
 void TIM4_IRQHandler(void) {
 	TIM4->SR &= ~TIM_SR_UIF;
-	TIM4->CR1 &= ~TIM_CR1_CEN;   
-    TIM4->CR1 |= TIM_CR1_CEN;
+	//TIM4->CR1 &= ~TIM_CR1_CEN;   
+    //TIM4->CR1 |= TIM_CR1_CEN;
 }
 
 #endif  // MCU1_H_
