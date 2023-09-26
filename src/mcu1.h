@@ -41,6 +41,29 @@ void MCO1_init() {
 //    RCC->CFGR &= ~RCC_CFGR_MCO1; //HSI
 }
 
+void PWM_init() {
+    RCC->AHB1ENR |= RCC_AHB1ENR_GPIODEN;
+    GPIOD->MODER |= (0x2 << (2 * 12));
+    GPIOD->AFR[1] |= (0x2 << 16); 
+    RCC->APB1ENR |= RCC_APB1ENR_TIM4EN;
 
+    TIM4->PSC = 2;
+    TIM4->ARR = 2;
+    TIM4->CCMR1 |= 0x60;
+    TIM4->CCR1 = 1;
+    TIM4->CCER |= 0x1;
+    
+    TIM4->DIER |= TIM_DIER_UIE;    
+    NVIC_EnableIRQ(TIM4_IRQn);
+    NVIC_SetPriority(TIM4_IRQn, 2);
+    
+    TIM4->CR1 |= TIM_CR1_CEN;
+}
+
+void TIM4_IRQHandler(void) {
+	TIM4->SR &= ~TIM_SR_UIF;
+	TIM4->CR1 &= ~TIM_CR1_CEN;   
+    TIM4->CR1 |= TIM_CR1_CEN;
+}
 
 #endif  // MCU1_H_
