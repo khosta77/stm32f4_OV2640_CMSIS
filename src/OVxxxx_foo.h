@@ -3,10 +3,10 @@
 
 #include "SCCB.h"
 
-uint8_t OVxxxx_WriteReg(uint8_t address,uint16_t Addr, uint8_t Data);
+uint8_t OVxxxx_WriteReg(uint8_t address, uint16_t Addr, uint8_t Data);
 uint8_t OVxxxx_ReadReg(uint8_t address, uint16_t Addr);
 
-uint8_t OVxxxx_WriteReg(uint8_t address,uint16_t Addr, uint8_t Data) {
+uint8_t OVxxxx_WriteReg(uint8_t address, uint16_t Addr, uint8_t Data) {
  	StartI2C0();
 	if (0 == I2CWrite0(address)) {
 		StopI2C0();
@@ -45,7 +45,7 @@ uint8_t OVxxxx_ReadReg(uint8_t address, uint16_t Addr) {
 	delay_us(100);
 
 	StartI2C0();
-	if(0 == I2CWrite0(OV7725_DEVICE_READ_ADDRESS)) {
+	if(0 == I2CWrite0(address)) {
 		StopI2C0();
 		return 0;
 	}
