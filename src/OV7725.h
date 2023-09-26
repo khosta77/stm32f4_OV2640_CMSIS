@@ -7,6 +7,9 @@
 #define OV7725_DEVICE_WRITE_ADDRESS    0x42
 #define OV7725_DEVICE_READ_ADDRESS     0x41	
 
+void OV7725_set_register();
+uint8_t OV7725_init();
+
 uint8_t OV7725_init() {
 	uint8_t mmm;
 

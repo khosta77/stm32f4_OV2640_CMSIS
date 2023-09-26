@@ -7,7 +7,10 @@
 #define OV5642_DEVICE_WRITE_ADDRESS    0x78
 #define OV5642_DEVICE_READ_ADDRESS     0x79
 
-uint8_t Cmos5642_init() {
+void OV5642_set_register();
+uint8_t OV5642_init();
+
+uint8_t OV5642_init() {
 	uint8_t mmm;
 
 	InitI2C0();

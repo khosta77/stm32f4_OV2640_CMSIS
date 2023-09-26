@@ -7,6 +7,9 @@
 #define OV7670_DEVICE_WRITE_ADDRESS    0x42
 #define OV7670_DEVICE_READ_ADDRESS     0x43
 
+void OV7670_set_register();
+uint8_t OV7670_init();
+
 uint8_t OV7670_init() {
 	uint8_t mmm;	
 
