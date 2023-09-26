@@ -37,7 +37,7 @@ void delay_us(uint32_t nus);
 
 #define SIO_D_OUT_MODE() { \
     GPIOB->MODER &= ~(GPIO_MODER_MODER10_1 | GPIO_MODER_MODER10_0); \
-    GPIOB->MODER |= GPIO_MODER_MODER10_0;
+    GPIOB->MODER |= GPIO_MODER_MODER10_0; \
 }
 
 #define GPIO_SCCB_SIO_C_INIT() { \
