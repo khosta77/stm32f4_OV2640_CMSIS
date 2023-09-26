@@ -1,0 +1,4 @@
+#ifndef OV5642_REGISTER_H_ 
+#define OV5642_REGISTER_H_
+
+#endif  // OV5642_REGISTER_H_
