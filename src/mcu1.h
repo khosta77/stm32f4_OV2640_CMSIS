@@ -3,9 +3,23 @@
 
 #include "../system/include/cmsis/stm32f4xx.h"
 
+#define CFGR_MCO1_RESET_MASK      ((uint32_t)0xF89FFFFF)
+
+#define RCC_MCO1Source_HSI               ((uint32_t)0x00000000)
+#define RCC_MCO1Source_LSE               ((uint32_t)0x00200000)
+#define RCC_MCO1Source_HSE               ((uint32_t)0x00400000)
+#define RCC_MCO1Source_PLLCLK            ((uint32_t)0x00600000)
+
+#define RCC_MCO1Div_1                    ((uint32_t)0x00000000)
+#define RCC_MCO1Div_2                    ((uint32_t)0x04000000)
+#define RCC_MCO1Div_3                    ((uint32_t)0x05000000)
+#define RCC_MCO1Div_4                    ((uint32_t)0x06000000)
+#define RCC_MCO1Div_5                    ((uint32_t)0x07000000)
+
+#define RCC_MCO1Source RCC_MCO1Source_HSI
+#define RCC_MCO1Div    RCC_MCO1Div_1
 
 void MCO1_init() {
-#if 1
     //enable clock for GPIOA
     RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
 
@@ -13,28 +27,18 @@ void MCO1_init() {
     GPIOA->MODER |= GPIO_MODER_MODER8_1;      // AF
     GPIOA->OTYPER &= ~GPIO_OTYPER_OT_8;       // PP
     GPIOA->PUPDR |= GPIO_PUPDR_PUPDR8_0;      // PU
-    GPIOA->OSPEEDR |= GPIO_OSPEEDER_OSPEEDR8; // High speed
+    GPIOA->OSPEEDR |= GPIO_OSPEEDER_OSPEEDR8; // High speed  // 100MHz
 
     //AF0 -> MCO
-    GPIOA->AFR[1] |= (GPIO_AF_MCO << 0);
-    RCC->CFGR &= ~RCC_CFGR_MCO1; //HSI
-#else
-    GPIO_InitTypeDef GPIO_InitStructure;
-    RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
-	RCC_ClockSecuritySystemCmd(ENABLE);
+    GPIOA->AFR[1] |= (0x0 << 0);
 
-	// GPIO config
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8;		//PA8 - XCLK
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
-	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
-	GPIO_Init(GPIOA, &GPIO_InitStructure);
+    uint32_t tmpreg = 0;
+    tmpreg = RCC->CFGR;
+    tmpreg &= CFGR_MCO1_RESET_MASK;
+    tmpreg |= RCC_MCO1Source | RCC_MCO1Div;
 
-	// GPIO AF config
-	GPIO_PinAFConfig(GPIOA, GPIO_PinSource8, GPIO_AF_MCO);
-	RCC_MCO1Config(RCC_MCO1Source_HSI, RCC_MCO1Div_1);
-#endif
+    RCC->CFGR = tmpreg;  
+//    RCC->CFGR &= ~RCC_CFGR_MCO1; //HSI
 }
 
 
