@@ -3,7 +3,7 @@
 
 #include "../system/include/cmsis/stm32f4xx.h"
 
-#define PWM_MODE 0
+#define PWM_MODE 1
 
 #if PWM_MODE
 #define G_ON() { GPIOD->ODR |= GPIO_ODR_OD12; }
