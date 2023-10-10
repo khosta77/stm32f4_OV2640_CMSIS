@@ -31,7 +31,7 @@ int main(void) {
 }
 
 void init() {
-    SysTick_Config(SystemCoreClock);
+    //SysTick_Config(SystemCoreClock);
     my_GPIO_init();
     MCO1_init();
     //PWM_init();
