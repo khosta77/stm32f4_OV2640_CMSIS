@@ -88,6 +88,18 @@ void DCMI_GPIO_init() {
     GPIOB->OSPEEDR |= (GPIO_OSPEEDER_OSPEEDR9_1 | GPIO_OSPEEDER_OSPEEDR9_0);
     GPIOB->PUPDR |= GPIO_PUPDR_PUPDR9_0;
     GPIOB->AFR[1] |= (0xD << 4);
+
+    // D8
+    GPIOC->MODER |= GPIO_MODER_MODER10_1;
+    GPIOC->OSPEEDR |= (GPIO_OSPEEDER_OSPEEDR10_1 | GPIO_OSPEEDER_OSPEEDR10_0);
+    GPIOC->PUPDR |= GPIO_PUPDR_PUPDR10_0;
+    GPIOC->AFR[1] |= (0xD << 8);
+
+    // D9
+    GPIOC->MODER |= GPIO_MODER_MODER12_1;
+    GPIOC->OSPEEDR |= (GPIO_OSPEEDER_OSPEEDR12_1 | GPIO_OSPEEDER_OSPEEDR12_0);
+    GPIOC->PUPDR |= GPIO_PUPDR_PUPDR12_0;
+    GPIOC->AFR[1] |= (0xD << 16);
 }
 
 void DCMI_DMA_init() {
@@ -107,11 +119,12 @@ void DCMI_DMA_init() {
     // 3.5 DMA_SxCR_PL_1 - Высокий уровень приоритета, не обезательная скорее всего настройка,
     //                     добавить если несколько будеь
     // 3.6 DMA_SxCR_TCIE - Прерывания
-    DMA2_Stream1->CR = (/*DMA_SxCR_CIRC |*/ DMA_SxCR_MINC | DMA_SxCR_PSIZE_1 | DMA_SxCR_MSIZE_1 | DMA_SxCR_TCIE | DMA_SxCR_TEIE);
-    DMA2_Stream1->FCR |= (0x3 << 0 );
+    DMA2_Stream1->CR = (DMA_SxCR_CIRC | DMA_SxCR_MINC | DMA_SxCR_PSIZE_1 | DMA_SxCR_MSIZE_1 | DMA_SxCR_TCIE | DMA_SxCR_TEIE);
+    //DMA2_Stream1->FCR |= (0x3 << 0);
+    DMA2->LIFCR |= (DMA_LIFCR_CTCIF1 | DMA_LIFCR_CTEIF1);
     // 4. Прерывания
     NVIC_EnableIRQ(DMA2_Stream1_IRQn);
-    NVIC_SetPriority(DMA2_Stream1_IRQn, 0);
+    NVIC_SetPriority(DMA2_Stream1_IRQn, 2);
 
     // 5. Запуск
 //    DMA2_Stream1->CR |= DMA_SxCR_EN;
@@ -121,7 +134,7 @@ void DCMI_DMA_init() {
 //    NVIC_EnableIRQ(DCMI_IRQn);
 //    NVIC_SetPriority(DCMI_IRQn, 1);
     RCC->AHB2ENR |= RCC_AHB2ENR_DCMIEN;
-    DCMI->CR |= (DCMI_CR_CM | DCMI_CR_VSPOL | DCMI_CR_HSPOL | DCMI_CR_PCKPOL | DCMI_CR_ENABLE);
+    DCMI->CR |= (DCMI_CR_CM | DCMI_CR_VSPOL | DCMI_CR_HSPOL | DCMI_CR_PCKPOL | DCMI_CR_EDM_0 | DCMI_CR_ENABLE);
 }
 
 void DMA2_Stream1_IRQHandler(void) {
@@ -129,7 +142,9 @@ void DMA2_Stream1_IRQHandler(void) {
 		DMA2->LIFCR |= DMA_LIFCR_CTCIF1;
         DMA2_Stream1->CR &= ~DMA_SxCR_EN;
     	image_state = 0x01;
-	} else if ((DMA2->LISR & DMA_LISR_TEIF1) == DMA_LISR_TEIF1) {
+	}
+
+    if ((DMA2->LISR & DMA_LISR_TEIF1) == DMA_LISR_TEIF1) {
         DMA2->LIFCR |= DMA_LIFCR_CTEIF1;
         image_state = 0x02;
         DMA2_Stream1->CR &= ~DMA_SxCR_EN;
