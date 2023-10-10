@@ -26,8 +26,8 @@ void DCMI_GPIO_init() {
 
     // VSY | VSYNC
     GPIOB->MODER |= GPIO_MODER_MODER7_1;
-    GPIOB->OSPEEDR |= (GPIO_OSPEEDER_OSPEEDR7_1 | GPIO_OSPEEDER_OSPEEDR7_0);
-    GPIOB->PUPDR |= GPIO_PUPDR_PUPDR7_0;
+    GPIOB->OSPEEDR |= (GPIO_OSPEEDER_OSPEEDR7_1 | GPIO_OSPEEDER_OSPEEDR7_0); // del
+    GPIOB->PUPDR |= GPIO_PUPDR_PUPDR7_0;// убрать..
     GPIOB->AFR[0] |= (0xD << 28);
 
     // HRE | HSYNC
@@ -103,12 +103,15 @@ void DCMI_GPIO_init() {
 }
 
 void DCMI_DMA_init() {
+        RCC->AHB2ENR |= RCC_AHB2ENR_DCMIEN;
+    DCMI->CR |= (DCMI_CR_CM | DCMI_CR_VSPOL | DCMI_CR_HSPOL | DCMI_CR_PCKPOL | DCMI_CR_EDM_0);
+
     /* DMA */
     RCC->AHB1ENR |= RCC_AHB1ENR_DMA2EN;
     DMA2_Stream1->CR |= (0x1 << 25);
 
 	DMA2_Stream1->PAR |= (uint32_t) (&DCMI->DR);
-	DMA2_Stream1->M0AR |= (uint32_t)&img;
+	DMA2_Stream1->M0AR |= (uint32_t)&img[0];
 	DMA2_Stream1->NDTR = (IMG_ROWS * IMG_COLS) / 2;
 
     // 3. Настройка
@@ -130,11 +133,11 @@ void DCMI_DMA_init() {
 //    DMA2_Stream1->CR |= DMA_SxCR_EN;
 
     /* DCMI */
+
+    DCMI->CR |= DCMI_CR_ENABLE;
 //    DCMI->IER |= (DCMI_IER_FRAME_IE | DCMI_IER_OVF_IE | DCMI_IER_ERR_IE);
 //    NVIC_EnableIRQ(DCMI_IRQn);
 //    NVIC_SetPriority(DCMI_IRQn, 1);
-    RCC->AHB2ENR |= RCC_AHB2ENR_DCMIEN;
-    DCMI->CR |= (DCMI_CR_CM | DCMI_CR_VSPOL | DCMI_CR_HSPOL | DCMI_CR_PCKPOL | DCMI_CR_EDM_0 | DCMI_CR_ENABLE);
 }
 
 void DMA2_Stream1_IRQHandler(void) {
