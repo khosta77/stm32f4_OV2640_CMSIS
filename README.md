@@ -1,4 +1,6 @@
-# OV2640
+# OVxxxx
+
+## Сборка
 
 ```
 $ make all; sudo openocd -f interface/stlink.cfg -f target/stm32f4x.cfg -c \
