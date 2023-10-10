@@ -8,7 +8,7 @@
 #define RCC_MCO1Source_HSI               ((uint32_t)0x00000000)
 #define RCC_MCO1Source_LSE               ((uint32_t)0x00200000)  // сигнала нет, на 1
 #define RCC_MCO1Source_HSE               ((uint32_t)0x00400000)  // сигнала нет, на 1
-#define RCC_MCO1Source_PLLCLK            ((uint32_t)0x00600000)
+#define RCC_MCO1Source_PLLCLK            ((uint32_t)0x00600000)  // сигнала нет, на 1
 
 #define RCC_MCO1Div_1                    ((uint32_t)0x00000000)
 #define RCC_MCO1Div_2                    ((uint32_t)0x04000000)
@@ -32,12 +32,8 @@ void MCO1_init() {
     //AF0 -> MCO
     GPIOA->AFR[1] |= (0x0 << 0);
 
-    uint32_t tmpreg = 0;
-    tmpreg = RCC->CFGR;
-    tmpreg &= CFGR_MCO1_RESET_MASK;
-    tmpreg |= RCC_MCO1Source | RCC_MCO1Div;
-
-    RCC->CFGR = tmpreg;  
+    RCC->CFGR &= CFGR_MCO1_RESET_MASK;
+    RCC->CFGR |= RCC_MCO1Source | RCC_MCO1Div;
 //    RCC->CFGR &= ~RCC_CFGR_MCO1; //HSI
 }
 
